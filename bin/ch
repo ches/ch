@@ -34,9 +34,10 @@ if [ -d $CH_SHEETS ]; then
         ;;
       update)
         if [ "$2" == 'self' ]; then
-          cd /tmp && git clone $CH_ORIGIN && 
-          cd ch && sudo make install && 
-          echo -n 'Updated to ' && ch -v
+          pushd /tmp && git clone $CH_ORIGIN && 
+          pushd ch && sudo make install && 
+          echo -n 'Updated to ' && ch -v &&
+          popd && popd && rm -rf /tmp/ch
         else
           cd $CH_SHEETS
           git pull origin master 2> /dev/null
